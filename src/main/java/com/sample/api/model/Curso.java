@@ -5,19 +5,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sample.api.enums.TipoCursoEnum;
 import com.sun.istack.NotNull;
 
@@ -35,11 +32,11 @@ public class Curso implements Serializable {
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo_cusro")
+	@Column(name = "tipo_curso")
 	private TipoCursoEnum tipoCurso;
 	
 	@NotNull
-	@Column(name="curso")
+	@Column(name="nome")
 	private String nome;
 	
 	@Column(name="data_cadastro")
@@ -48,8 +45,7 @@ public class Curso implements Serializable {
 	@Column(name="data_alteracao")
 	private Date dataAlteracao;
 	
-	@JsonManagedReference()
-	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@Transient
 	private List<Aluno> aluno = new ArrayList<Aluno>();
 	
 	public Long getId() {

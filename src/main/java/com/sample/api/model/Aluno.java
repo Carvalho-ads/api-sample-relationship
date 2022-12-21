@@ -45,6 +45,7 @@ public class Aluno implements Serializable {
 	@Column(name = "tipo_genero")
 	private TipoGeneroEnum tipoGenero;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn( name = "curso_id")
 	private Curso curso;

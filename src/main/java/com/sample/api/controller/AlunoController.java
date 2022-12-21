@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,8 +47,7 @@ public class AlunoController {
 	    
 	 
 	
-	@PostMapping(value= "/novo")      																
-	@ResponseBody                    																 
+	@PostMapping(value= "/novo")      																                 																 
     public ResponseEntity<Aluno> CadastrarAluno(@RequestBody Aluno aluno){ 	/*Recebe os dados para persistir no banco de dados*/
     	Aluno aln = repository.save(aluno);    /*por meio do método "findAll" do JpaRepository executa a consultar no banco de dados*/
     	return new ResponseEntity<Aluno>(aln, HttpStatus.CREATED);		/*Retorna a lista em JSON do objeto criado "aln" e o HttpStatus*/
@@ -68,10 +68,9 @@ public class AlunoController {
     }
 	
 	
-	@DeleteMapping(value = "/deletar")
+	@DeleteMapping(value = "/deletar/{id}")
 	@ResponseBody
-	public ResponseEntity<?> deletar(@RequestParam Long id){
-		
+	public ResponseEntity<?> deletar(@PathVariable Long id){
 		repository.deleteById(id);
 		return new ResponseEntity<String>("Deletado com sucesso", HttpStatus.ACCEPTED);	/*Retorna a mensagem do objeto deletado do banco por meio do "id" e o HttpStatus*/
 	}
